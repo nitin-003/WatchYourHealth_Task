@@ -6,14 +6,35 @@ const sessionRoutes = require('./routes/sessionRoutes');
 const { errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
-
 require('dotenv').config();
 
-// Middleware
+// Middleware: CORS
+const allowedOrigins = [
+  process.env.FRONTEND_URL, 
+  /\.vercel\.app$/          // Allow all Vercel preview URLs
+];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like Postman)
+    if(!origin) return callback(null, true);
+
+    if(
+      allowedOrigins.some(o => {
+        if (o instanceof RegExp) return o.test(origin);
+        return o === origin;
+      })
+    ){
+      callback(null, true);
+    } 
+    else{
+      callback(new Error(`CORS policy: Origin ${origin} not allowed`));
+    }
+  },
+  credentials: true,
 }));
+
+// Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,5 +52,6 @@ app.get('/api/health', (req, res) => {
 app.use(errorHandler);
 
 module.exports = app;
+
 
 
