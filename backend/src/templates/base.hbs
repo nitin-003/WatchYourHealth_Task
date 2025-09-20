@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Report - {{assessment_id}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .report-info {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .info-value {
+            color: #6c757d;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .metric-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .metric-label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+        
+        .metric-unit {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        .classification {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .classification.normal {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .classification.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .classification.danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .classification.low {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .classification.high {
+            background: #ffe6e6;
+            color: #721c24;
+        }
+        
+        .classification.underweight {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+        
+        .classification.overweight {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .classification.obesity {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .timestamp {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; }
+            .metric-card:hover { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Health Assessment Report</h1>
+            <div class="subtitle">Comprehensive Health Analysis</div>
+        </div>
+        
+        <!-- Report Information -->
+        <div class="report-info">
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Session ID:</span>
+                    <span class="info-value">{{session_id}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Assessment Type:</span>
+                    <span class="info-value">{{assessment_id}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Generated:</span>
+                    <span class="info-value">{{timestamp}}</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            {{#each sections}}
+            <div class="section">
+                <div class="section-header">
+                    {{title}}
+                </div>
+                
+                {{#each items}}
+                <div class="metrics-grid">
+                    {{#each fields}}
+                    <div class="metric-card">
+                        <div class="metric-label">{{label}}</div>
+                        <div class="metric-value">{{value}}</div>
+                        {{#if classification}}
+                        <div class="classification {{classification}}">{{classification}}</div>
+                        {{/if}}
+                        {{#if unit}}
+                        <div class="metric-unit">{{unit}}</div>
+                        {{/if}}
+                    </div>
+                    {{/each}}
+                </div>
+                {{/each}}
+            </div>
+            {{/each}}
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="timestamp">
+                Report generated on {{timestamp}} | Assessment Management System
+            </div>
+        </div>
+    </div>
+</body>
+</html>
