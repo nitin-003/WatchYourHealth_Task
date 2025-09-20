@@ -17,7 +17,8 @@ export default function Home() {
     const fetchStats = async () => {
       try {
         // Fetch available sessions
-        const sessionsResponse = await fetch('http://localhost:5000/api/sessions/sessions', {
+        const API_BASE = process.env.REACT_APP_API_URL;
+        const sessionsResponse = await fetch(`${API_BASE}/sessions/sessions`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'

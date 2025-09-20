@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/report';
+const API_URL = process.env.REACT_APP_API_URL + '/report';
 
 export const generateReport = (session_id, token) =>
   axios.post(
@@ -12,7 +12,9 @@ export const generateReport = (session_id, token) =>
 export const downloadReport = (session_id, token) =>
   axios.get(`${API_URL}/download/${session_id}`, {
     headers: { Authorization: `Bearer ${token}` },
-    responseType: 'blob' // important for file download
+    responseType: 'blob' 
   });
+
+
 
   

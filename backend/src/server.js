@@ -6,4 +6,8 @@ connectDB();
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
+app.get('/', (req, res) => {
+  res.send('Backend is running!');
+});
+
 
