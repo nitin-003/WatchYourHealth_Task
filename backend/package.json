@@ -5,9 +5,11 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon --watch src --ext js src/server.js"
+    "dev": "nodemon --watch src --ext js src/server.js",
+    "build": "echo 'No build step required for Node.js'",
+    "postinstall": "echo 'Backend dependencies installed successfully'"
   },
-  "keywords": [],
+  "keywords": ["assessment", "health", "api", "pdf", "reports"],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -25,5 +27,9 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }

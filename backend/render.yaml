@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: assessment-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        fromDatabase:
+          name: assessment-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://your-frontend-app.vercel.app
+
+databases:
+  - name: assessment-db
+    plan: free
+    databaseName: assessment_db

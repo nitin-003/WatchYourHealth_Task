@@ -22,7 +22,9 @@ export default function Home() {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
-          }
+          },
+          credentials: 'include', // Important for CORS with credentials
+          timeout: 10000 // 10 second timeout
         });
         
         if(sessionsResponse.ok){
