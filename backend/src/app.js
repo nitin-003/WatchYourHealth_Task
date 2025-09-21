@@ -10,14 +10,16 @@ require('dotenv').config();
 
 // Middleware: CORS
 const allowedOrigins = [
-  process.env.FRONTEND_URL, 
-  /\.vercel\.app$/          // Allow all Vercel preview URLs
+  "http://localhost:3000",   // Local React app
+  "http://127.0.0.1:3000",   // In case you run via 127.0.0.1
+  process.env.FRONTEND_URL,  // Deployed frontend (e.g. Vercel main URL)
+  /\.vercel\.app$/           // Allow all Vercel preview URLs
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like Postman)
-    if(!origin) return callback(null, true);
+    // Allow requests with no origin (like Postman / mobile apps)
+    if (!origin) return callback(null, true);
 
     if(
       allowedOrigins.some(o => {
@@ -32,6 +34,7 @@ app.use(cors({
     }
   },
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 }));
 
 // Middleware to parse JSON and URL-encoded data
@@ -52,6 +55,5 @@ app.get('/api/health', (req, res) => {
 app.use(errorHandler);
 
 module.exports = app;
-
 
 
